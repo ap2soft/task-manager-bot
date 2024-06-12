@@ -6,7 +6,7 @@
         type="text"
         name="new_task"
         id="new_task"
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+        class="block w-full rounded-md border-0 bg-[var(--tg-theme-bg-color)] py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
         placeholder="New task, e.g. 'Host a fancy dinner party for imaginary friends'"
         autocomplete="off"
         v-model="newTask"
