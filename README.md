@@ -1,14 +1,6 @@
-# task-manager
+[![Netlify Status](https://api.netlify.com/api/v1/badges/19444fd1-acee-42ab-86af-d5ff629941bf/deploy-status)](https://app.netlify.com/sites/task-manager-bot/deploys)
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+# Task Manager Telegram Bot
 
 ## Project Setup
 
