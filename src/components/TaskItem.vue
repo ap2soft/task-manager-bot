@@ -4,7 +4,7 @@
       <label
         :for="`task-${task.id}`"
         class="select-none font-medium"
-        :class="[task.complete ? 'text-gray-400 line-through' : 'text-gray-900']"
+        :class="{ 'line-through opacity-50': task.complete }"
       >
         {{ task.text }}
       </label>
