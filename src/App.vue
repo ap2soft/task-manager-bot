@@ -9,7 +9,7 @@ import { RouterView } from 'vue-router'
     >
       <header>
         <h1 class="text-center text-2xl font-bold text-[var(--tg-theme-section-header-text-color)]">
-          Hello
+          TaskMaster
         </h1>
 
         <nav class="mt-4 flex items-center justify-center divide-x divide-gray-300">
