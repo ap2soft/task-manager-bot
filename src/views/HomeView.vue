@@ -1,9 +1,5 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
-    <TheWelcome />
+    <h2 class="text-xl font-medium text-pink-800">Home page</h2>
   </main>
 </template>
