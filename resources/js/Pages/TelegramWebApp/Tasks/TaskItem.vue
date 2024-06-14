@@ -24,7 +24,7 @@
 
 <script setup>
 defineProps({
-  task: Object
+  task: Object,
 })
 
 const emit = defineEmits(['toggle-complete'])
