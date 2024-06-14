@@ -2,10 +2,10 @@
   <div>
     <p class="text-sm text-[var(--tg-theme-hint-color)]">Hello @{{ userData.username ?? '%username%' }}.</p>
     <div>
-      <code>{{ tg.initDataUnsafe }}</code>
+      {{ tg.initDataUnsafe }}
     </div>
     <div>
-      <code>{{ tg.initData }}</code>
+      {{ tg.initData }}
     </div>
   </div>
 </template>
