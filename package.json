@@ -9,6 +9,7 @@
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
+        "@prettier/plugin-php": "^0.22.2",
         "@rushstack/eslint-patch": "^1.8.0",
         "@tailwindcss/forms": "^0.5.7",
         "@vitejs/plugin-vue": "^5.0.0",
