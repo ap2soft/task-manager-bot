@@ -24,4 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+require  __DIR__.'/telegram-web-app.php';
+
 require __DIR__.'/auth.php';
