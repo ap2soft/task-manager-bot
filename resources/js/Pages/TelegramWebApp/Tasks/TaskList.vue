@@ -58,6 +58,16 @@ let form = useForm('post', route('twa.tasks.store'), {
 })
 
 const addNewTask = () => {
+  let tg = window.Telegram.WebApp
+  tg.sendData(
+    JSON.stringify({
+      action: 'add_new_task',
+      payload: {
+        text: form.text,
+      },
+    })
+  )
+
   form.submit({
     preserveState: true,
     only: ['tasks'],
