@@ -17,7 +17,15 @@ class TaskListController extends Controller
             'tasks' => Task::query()
                 // order by status: incomplete, then complete
                 // order by creation date: oldest first
-                ->orderByRaw('iif(complete, 999, 1)')
+                ->orderByRaw(
+                    <<<'SQL'
+                      case complete
+                        when 1 then 999
+                        else 0
+                      end
+                    SQL
+                    ,
+                )
                 ->oldest()
                 ->paginate(10)
                 ->through(fn(Task $task) => $task->only(['id', 'text', 'complete'])),
