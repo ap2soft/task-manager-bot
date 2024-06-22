@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Validation\UnauthorizedException;
 use Nutgram\Laravel\Middleware\ValidateWebAppData;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,8 +22,6 @@ class EnsureWebAppIsAuthenticated
 
     /**
      * Determine if the web app data are provided in the request and valid.
-     *
-     * @throws UnauthorizedException
      */
     private function validateAuthentication(Request $request, Closure $next): void
     {
@@ -35,11 +32,8 @@ class EnsureWebAppIsAuthenticated
         $this->validateWebAppData->handle($request, $next);
     }
 
-    /**
-     * @throws UnauthorizedException
-     */
     private function unauthenticated(): void
     {
-        throw new UnauthorizedException('Unauthorized.');
+        abort(403, 'Forbidden.');
     }
 }
