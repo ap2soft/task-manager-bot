@@ -17,7 +17,13 @@ Telegram::onCommand('start', function (Nutgram $bot) {
     logger('command "start"');
 
     $bot->sendMessage('Hi 👋🏻');
-})->description('The start command!');
+})->description('The start command');
+
+Telegram::onCommand('help', function (Nutgram $bot) {
+    logger('command "help"');
+
+    $bot->sendMessage('How can I assist you?');
+})->description('The help command');
 
 Telegram::onMessage(function (Nutgram $bot) {
     logger('onMessage', [$bot->message()->toArray()]);
