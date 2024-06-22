@@ -22,7 +22,7 @@
       </form>
 
       <div class="mt-4">
-        <template v-if="tasks.data.length">
+        <template v-if="tasks?.data.length">
           <div
             class="mt-4 divide-y divide-gray-200 border-b border-t border-gray-200 dark:divide-gray-700 dark:border-gray-700"
           >
@@ -51,7 +51,7 @@ import Pagination from '@/Components/Pagination.vue'
 import { onMounted } from 'vue'
 
 const props = defineProps({
-  tasks: { type: Object, default: () => ({ data: [] }) },
+  tasks: Object,
 })
 
 let tg = window.Telegram.WebApp

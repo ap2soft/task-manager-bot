@@ -24,7 +24,7 @@ class AuthenticateTelegramUser
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->has('initData')) {
+        if (!$request->filled('initData')) {
             return $next($request);
         }
 
