@@ -51,13 +51,15 @@ import Pagination from '@/Components/Pagination.vue'
 import { onMounted } from 'vue'
 
 const props = defineProps({
-  tasks: Object,
+  tasks: { type: Object, default: () => ({ data: [] }) },
 })
 
 let tg = window.Telegram.WebApp
 
 onMounted(() => {
   tg.ready()
+
+  router.reload({ only: ['tasks'], data: { initData: tg.initData } })
 })
 
 let form = useForm('post', route('twa.tasks.store'), {
