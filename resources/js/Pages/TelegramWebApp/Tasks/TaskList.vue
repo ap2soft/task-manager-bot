@@ -31,7 +31,7 @@
 
           <Pagination :links="tasks.links" />
         </template>
-        <p v-else>No tasks</p>
+        <p v-else class="text-gray-600 dark:text-gray-400">No tasks</p>
       </div>
     </div>
   </TelegramWebAppLayout>
