@@ -1,5 +1,4 @@
 <?php
-/** @var SergiX44\Nutgram\Nutgram $bot */
 
 use Nutgram\Laravel\Facades\Telegram;
 use SergiX44\Nutgram\Nutgram;
@@ -14,15 +13,19 @@ use SergiX44\Nutgram\Nutgram;
 |
 */
 
-$bot->onCommand('start', function (Nutgram $bot) {
-    $bot->sendMessage('Hello, world!');
+Telegram::onCommand('start', function (Nutgram $bot) {
+    logger('command "start"');
+
+    $bot->sendMessage('Hi 👋🏻');
 })->description('The start command!');
 
-Telegram::onCallbackQuery(function ($data) {
-    logger('callback-query', $data);
+Telegram::onMessage(function (Nutgram $bot) {
+    logger('onMessage', [$bot->message()->toArray()]);
+    $bot->sendMessage(
+        <<<MARKDOWN
+        You said:
+        > {$bot->message()->getText()}
+        MARKDOWN
+        ,
+    );
 });
-
-Telegram::onWebAppData(function ($data) {
-    logger('web-app', $data);
-});
-

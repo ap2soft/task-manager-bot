@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use function Nutgram\Laravel\Support\webAppData;
+
 class TaskListController extends Controller
 {
     public function index(): Response
@@ -34,6 +36,10 @@ class TaskListController extends Controller
 
     public function store(TaskRequest $request): RedirectResponse
     {
+        logger('store', [
+            'data' => $request->validated(),
+            'web_app_data' => webAppData(),
+        ]);
         Task::create($request->validated());
 
         return redirect()->route('twa.tasks.index');

@@ -48,26 +48,24 @@ import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import InputError from '@/Components/InputError.vue'
 import Pagination from '@/Components/Pagination.vue'
+import { onMounted } from 'vue'
 
 const props = defineProps({
   tasks: Object,
 })
 
+let tg = window.Telegram.WebApp
+
+onMounted(() => {
+  tg.ready()
+})
+
 let form = useForm('post', route('twa.tasks.store'), {
   text: '',
+  initData: tg.initData,
 })
 
 const addNewTask = () => {
-  let tg = window.Telegram.WebApp
-  tg.sendData(
-    JSON.stringify({
-      action: 'add_new_task',
-      payload: {
-        text: form.text,
-      },
-    })
-  )
-
   form.submit({
     preserveState: true,
     only: ['tasks'],
