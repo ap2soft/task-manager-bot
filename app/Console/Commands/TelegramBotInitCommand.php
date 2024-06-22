@@ -7,8 +7,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Command\BotCommand;
 use SergiX44\Nutgram\Telegram\Types\Command\BotCommandScopeDefault;
 
-use function Laravel\Prompts\note;
-use function Laravel\Prompts\spin;
+use function Laravel\Prompts\{info, note, spin, warning};
 
 class TelegramBotInitCommand extends Command
 {
@@ -26,7 +25,7 @@ class TelegramBotInitCommand extends Command
         $this->testBotToken();
         $this->registerBotCommands();
         $this->setBotDescription();
-        // TODO: Register the webhook
+        $this->setWebhook();
 
         info('✅ Bot installed successfully');
 
@@ -75,5 +74,18 @@ class TelegramBotInitCommand extends Command
         }, 'Setting bot description...');
 
         note('✅ Bot description set');
+    }
+
+    private function setWebhook(): void
+    {
+        if (app()->isLocal()) {
+            warning('🚫 Webhook registration skipped for local environment');
+
+            return;
+        }
+
+        spin(fn() => $this->bot->setWebhook(route('telegram-webhook')), 'Checking bot token validity...');
+
+        note('✅ Webhook is registered');
     }
 }

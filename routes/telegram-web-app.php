@@ -26,4 +26,4 @@ Route::prefix('telegram-web-app')
 
 Route::any('nutgram/webhook', function (Nutgram $bot) {
     $bot->run();
-});
+})->name('telegram-webhook');
