@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Command\BotCommand;
 use SergiX44\Nutgram\Telegram\Types\Command\BotCommandScopeDefault;
 
-use function Laravel\Prompts\{info, note, spin, warning};
+use function Laravel\Prompts\{error, info, note, spin, warning};
 
 class TelegramBotInitCommand extends Command
 {
@@ -84,8 +85,13 @@ class TelegramBotInitCommand extends Command
             return;
         }
 
-        spin(fn() => $this->bot->setWebhook(route('telegram-webhook')), 'Checking bot token validity...');
+        $url = route('telegram-webhook');
 
-        note('✅ Webhook is registered');
+        try {
+            spin(fn() => $this->bot->setWebhook($url), 'Checking bot token validity...');
+            note('✅ Webhook is registered');
+        } catch (Exception $e) {
+            error("❌ Error registering webhook [$url]" . PHP_EOL . $e->getMessage());
+        }
     }
 }
