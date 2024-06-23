@@ -78,9 +78,9 @@ const addNewTask = () => {
 const toggleTaskComplete = (taskId) => {
   let task = props.tasks.data.find(({ id }) => id === taskId)
   if (task.complete) {
-    router.delete(route('twa.tasks.uncomplete', taskId), { only: ['tasks'] })
+    router.delete(route('twa.tasks.uncomplete', { task: taskId, initData: tg.initData }), { only: ['tasks'] })
   } else {
-    router.patch(route('twa.tasks.complete', taskId), null, { only: ['tasks'] })
+    router.patch(route('twa.tasks.complete', { task: taskId, initData: tg.initData }), null, { only: ['tasks'] })
   }
   task.complete = !task.complete
 }
