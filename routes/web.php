@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use SergiX44\Nutgram\Nutgram;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require  __DIR__.'/telegram-web-app.php';
+require __DIR__ . '/telegram-web-app.php';
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Route::post('nutgram/webhook', fn(Nutgram $bot) => $bot->run())->name('telegram-webhook');
