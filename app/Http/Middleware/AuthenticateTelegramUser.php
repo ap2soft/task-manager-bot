@@ -29,13 +29,16 @@ class AuthenticateTelegramUser
         }
 
         return $this->validateWebAppData->handle($request, function (Request $request) use ($next) {
-            $userData = webAppData()->user;
-
-            $user = User::firstOrCreate(['telegram_user_id' => $userData->id], ['name' => $userData->username]);
-
-            Auth::login($user);
+            Auth::login($this->getUser());
 
             return $next($request);
         });
+    }
+
+    private function getUser(): User
+    {
+        $userData = webAppData()->user;
+
+        return User::firstOrCreate(['telegram_user_id' => $userData->id], ['name' => $userData->username]);
     }
 }
