@@ -2,6 +2,7 @@
 
 use Nutgram\Laravel\Facades\Telegram;
 use SergiX44\Nutgram\Nutgram;
+use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardRemove;
 
 /*
@@ -34,5 +35,6 @@ Telegram::onMessage(function (Nutgram $bot) {
         > {$bot->message()->getText()}
         MARKDOWN
         ,
+        parse_mode: ParseMode::MARKDOWN,
     );
 });
