@@ -41,7 +41,6 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request): RedirectResponse
     {
-        logger('store task', ['data' => $request->validated()]);
         Auth::user()->tasks()->create($request->validated());
 
         return redirect()->route('twa.tasks.index');
