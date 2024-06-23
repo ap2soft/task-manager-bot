@@ -88,10 +88,7 @@ class TelegramBotInitCommand extends Command
         $url = route('telegram-webhook');
 
         try {
-            spin(
-                fn() => $this->bot->setWebhook($url, secret_token: env('TELEGRAM_TOKEN')),
-                'Checking bot token validity...',
-            );
+            spin(fn() => $this->bot->setWebhook($url), 'Checking bot token validity...');
             note('✅ Webhook is registered');
         } catch (Exception $e) {
             error("❌ Error registering webhook [$url]" . PHP_EOL . $e->getMessage());
