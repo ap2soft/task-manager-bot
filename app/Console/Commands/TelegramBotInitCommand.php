@@ -88,7 +88,7 @@ class TelegramBotInitCommand extends Command
         $url = route('telegram-webhook');
 
         try {
-            spin(fn() => $this->call('nutgram:hook:set', [$url]), 'Checking bot token validity...');
+            spin(fn() => $this->call('nutgram:hook:set', ['url' => $url]), 'Checking bot token validity...');
             note('✅ Webhook is registered');
         } catch (Exception $e) {
             error("❌ Error registering webhook [$url]" . PHP_EOL . $e->getMessage());
