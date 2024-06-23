@@ -15,21 +15,19 @@ class EnsureWebAppIsAuthenticated
 
     public function handle(Request $request, Closure $next): Response
     {
-        $this->validateAuthentication($request, $next);
-
-        return $next($request);
+        return $this->validateAuthentication($request, $next);
     }
 
     /**
      * Determine if the web app data are provided in the request and valid.
      */
-    private function validateAuthentication(Request $request, Closure $next): void
+    private function validateAuthentication(Request $request, Closure $next): Response
     {
         if (!$request->filled('initData')) {
             $this->unauthenticated();
         }
 
-        $this->validateWebAppData->handle($request, $next);
+        return $this->validateWebAppData->handle($request, $next);
     }
 
     private function unauthenticated(): void
