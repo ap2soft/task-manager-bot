@@ -3,7 +3,6 @@
 use Nutgram\Laravel\Facades\Telegram;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
-use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardRemove;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +15,11 @@ use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardRemove;
 */
 
 Telegram::onCommand('start', function (Nutgram $bot) {
-    logger('command "start"');
-
-    $bot->sendMessage('Hi 👋🏻', reply_markup: ReplyKeyboardRemove::make(remove_keyboard: true));
+    $bot->sendMessage('Hi 👋🏻');
 })->description('The start command');
 
 Telegram::onCommand('help', function (Nutgram $bot) {
-    logger('command "help"');
-
-    $bot->sendMessage('How can I assist you?');
+    $bot->sendMessage('How can I assist you today?');
 })->description('The help command');
 
 Telegram::onMessage(function (Nutgram $bot) {
