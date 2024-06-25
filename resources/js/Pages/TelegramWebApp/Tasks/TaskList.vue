@@ -22,7 +22,7 @@
       </form>
 
       <div class="mt-4">
-        <template v-if="tasks.data.length">
+        <template v-if="tasks?.data.length">
           <div
             class="mt-4 divide-y divide-gray-200 border-b border-t border-gray-200 dark:divide-gray-700 dark:border-gray-700"
           >
@@ -31,7 +31,7 @@
 
           <Pagination :links="tasks.links" />
         </template>
-        <p v-else>No tasks</p>
+        <p v-else class="text-gray-600 dark:text-gray-400">No tasks</p>
       </div>
     </div>
   </TelegramWebAppLayout>
@@ -48,13 +48,23 @@ import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import InputError from '@/Components/InputError.vue'
 import Pagination from '@/Components/Pagination.vue'
+import { onMounted } from 'vue'
 
 const props = defineProps({
   tasks: Object,
 })
 
+let tg = window.Telegram.WebApp
+
+onMounted(() => {
+  tg.ready()
+
+  router.reload({ only: ['tasks'], data: { initData: tg.initData } })
+})
+
 let form = useForm('post', route('twa.tasks.store'), {
   text: '',
+  initData: tg.initData,
 })
 
 const addNewTask = () => {
@@ -68,9 +78,9 @@ const addNewTask = () => {
 const toggleTaskComplete = (taskId) => {
   let task = props.tasks.data.find(({ id }) => id === taskId)
   if (task.complete) {
-    router.delete(route('twa.tasks.uncomplete', taskId), { only: ['tasks'] })
+    router.delete(route('twa.tasks.uncomplete', { task: taskId, initData: tg.initData }), { only: ['tasks'] })
   } else {
-    router.patch(route('twa.tasks.complete', taskId), null, { only: ['tasks'] })
+    router.patch(route('twa.tasks.complete', { task: taskId, initData: tg.initData }), null, { only: ['tasks'] })
   }
   task.complete = !task.complete
 }

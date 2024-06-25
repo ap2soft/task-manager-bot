@@ -1,5 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+beforeEach(function () {
+    if (!Route::has('register')) {
+        $this->markTestSkipped('Registration is disabled.');
+    }
+});
+
 test('registration screen can be rendered', function () {
     $response = $this->get('/register');
 

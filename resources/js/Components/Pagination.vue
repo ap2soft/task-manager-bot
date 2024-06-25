@@ -2,6 +2,7 @@
   <nav v-if="links.length > 3" class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
     <div class="-mt-px flex w-0 flex-1">
       <Link
+        v-if="prevLink"
         :href="prevLink"
         class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:hover:border-gray-600 dark:hover:text-gray-300"
       >
@@ -28,6 +29,7 @@
 
     <div class="-mt-px flex w-0 flex-1 justify-end">
       <Link
+        v-if="nextLink"
         :href="nextLink"
         class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:hover:border-gray-600 dark:hover:text-gray-300"
       >
