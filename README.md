@@ -1,5 +1,3 @@
-Here is the improved version of your README:
-
 ## Installation in Production
 
 ### Set Up the Laravel Application
