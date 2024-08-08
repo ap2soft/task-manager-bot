@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-sm text-gray-600 dark:text-gray-400">Hello @{{ userData.username ?? '%username%' }}.</p>
+    <p class="text-sm/6 text-zinc-500">Hello @{{ userData.username ?? '%username%' }}.</p>
   </div>
 </template>
 
