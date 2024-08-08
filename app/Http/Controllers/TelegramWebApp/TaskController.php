@@ -3,63 +3,62 @@
 namespace App\Http\Controllers\TelegramWebApp;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\TaskRepository;
 use App\Http\Requests\TelegramWebApp\TaskRequest;
 use App\Models\Task;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class TaskController extends Controller
+class TaskController extends Controller implements HasMiddleware
 {
+    public function __construct(private readonly TaskRepository $repository)
+    {
+    }
+
+    public static function middleware(): array
+    {
+        return [new Middleware(HandlePrecognitiveRequests::class, only: ['store'])];
+    }
+
     public function index(): Response
     {
-        $user = Auth::user();
-
-        $userTasks = $user
-            ?->tasks()
-            // order by status: incomplete, then complete
-            // order by creation date: oldest first
-            ->orderByRaw(
-                <<<'SQL'
-                  case
-                    when complete = 1 then 999
-                    else 0
-                  end
-                SQL
-                ,
-            )
-            ->oldest()
-            ->paginate(10)
-            ->through(fn(Task $task) => $task->only(['id', 'text', 'complete']));
-
-        return Inertia::render('TelegramWebApp/Tasks/TaskList', [
-            'tasks' => $userTasks,
+        return Inertia::render('TelegramWebApp/Tasks/Index', [
+            'tasks' => Inertia::lazy(fn() => $this->repository->getUserTasks(Auth::user())),
         ]);
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('TelegramWebApp/Tasks/Create');
     }
 
     public function store(TaskRequest $request): RedirectResponse
     {
-        Auth::user()->tasks()->create($request->validated());
+        $this->repository->create($request->user(), $request->validated());
 
         return redirect()->route('twa.tasks.index');
     }
 
-    public function complete(Task $task): RedirectResponse
+    public function show(Task $task): Response
     {
         Gate::authorize('manage', $task);
 
-        $task->update(['complete' => true]);
-
-        return redirect()->route('twa.tasks.index');
+        return Inertia::render('TelegramWebApp/Tasks/Show', [
+            'task' => $task,
+        ]);
     }
 
-    public function uncomplete(Task $task): RedirectResponse
+    public function destroy(Task $task): RedirectResponse
     {
         Gate::authorize('manage', $task);
 
-        $task->update(['complete' => false]);
+        $task->delete();
 
         return redirect()->route('twa.tasks.index');
     }

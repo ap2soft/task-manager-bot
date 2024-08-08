@@ -9,13 +9,10 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'text', 'complete'];
+    protected $fillable = ['user_id', 'title', 'text', 'date', 'notify_at'];
 
     protected $casts = [
-        'complete' => 'boolean',
-    ];
-
-    protected $attributes = [
-        'complete' => false,
+        'date' => 'datetime',
+        'notify_at' => 'datetime',
     ];
 }

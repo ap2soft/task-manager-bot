@@ -17,8 +17,9 @@ Route::prefix('telegram-web-app')
             Route::post('/', [TaskController::class, 'store'])
                 ->middleware(HandlePrecognitiveRequests::class)
                 ->name('tasks.store');
-
-            Route::patch('/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
-            Route::delete('/{task}/uncomplete', [TaskController::class, 'uncomplete'])->name('tasks.uncomplete');
         });
+            Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
+            Route::post('/', [TaskController::class, 'store'])->name('tasks.store');
+            Route::get('/{task}', [TaskController::class, 'show'])->name('tasks.show');
+            Route::delete('/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     });

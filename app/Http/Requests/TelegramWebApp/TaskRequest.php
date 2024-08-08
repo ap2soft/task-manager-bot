@@ -9,7 +9,10 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'text' => 'required|string|max:255',
+            'title' => ['required', 'string', 'max:255', 'min:3'],
+            'text' => ['nullable', 'string', 'max:2000'],
+            'date' => ['required', 'date_format:Y-m-d'],
+            'time' => ['required', 'date_format:H:i'],
         ];
     }
 }

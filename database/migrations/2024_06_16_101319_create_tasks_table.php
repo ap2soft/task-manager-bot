@@ -11,8 +11,10 @@ return new class extends Migration {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->string('text');
-            $table->boolean('complete');
+            $table->string('title');
+            $table->text('text')->nullable();
+            $table->dateTime('date');
+            $table->dateTime('notify_at')->nullable();
             $table->timestamps();
         });
     }
